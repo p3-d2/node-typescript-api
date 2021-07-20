@@ -1,6 +1,9 @@
 name: Complete workflow
 
-on: ['push']
+on:
+  push:
+    branches:
+      - main
 
 jobs:
 
@@ -32,3 +35,10 @@ jobs:
 
     - name: Run all tests
       run: yarn test
+
+    - uses: akhileshns/heroku-deploy@v3.12.12
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: "pedro-surf-forecast"
+          heroku_email: "pedro.contato.email@gmail.com"
+          usedocker: true
