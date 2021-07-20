@@ -36,5 +36,7 @@ jobs:
     - name: Run all tests
       run: yarn test
 
-    - name: Push to Heroku
-      run: git push -f https://heroku:${{ secrets.HEROKU_API_TOKEN }}@git.heroku.com/pedro-surf-forecast.git origin/main:main
+    - name: Login to Heroku Container registry
+      env: 
+        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+      run: heroku container:login
