@@ -36,15 +36,11 @@ jobs:
     - name: Run all tests
       run: yarn test
 
-    - name: Login to Heroku Container registry
-      env: 
-        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-      run: heroku container:login
-
-    - name: Add Heroku remote
-      run: heroku git:remote -a $HEROKU_APP_NAME
-      env:
-        HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
-
-    - name: Push to Heroku
-      run: git push heroku main
+    - name: Deploying to Heroku
+        uses: akhileshns/heroku-deploy@v3.12.12
+        with:
+          heroku_api_key:  ${{ secrets.HEROKU_API_KEY }}
+          heroku_app_name: ${{ secrets.HEROKU_APP_NAME }}
+          heroku_email: "pedro.contato.email@gmail.com"
+          healthcheck: "https://${{ secrets.HEROKU_APP_NAME }}.herokuapp.com/healthcheck"
+          rollbackonhealthcheckfailed: true
