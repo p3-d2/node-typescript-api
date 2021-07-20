@@ -36,6 +36,12 @@ jobs:
     - name: Run all tests
       run: yarn test
 
+    - name: Lint
+      run: yarn lint:fix
+
+    - name: Style
+      run: yarn style:fix
+
     - name: Deploying to Heroku
       uses: akhileshns/heroku-deploy@v3.12.12
       with:
