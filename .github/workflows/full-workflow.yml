@@ -36,10 +36,5 @@ jobs:
     - name: Run all tests
       run: yarn test
 
-    - name: Deployment
-      uses: akhileshns/heroku-deploy@v3.12.12
-      with:
-        heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-        heroku_app_name: "pedro-surf-forecast"
-        heroku_email: "pedro.contato.email@gmail.com"
-        usedocker: true
+    - name: Push to Heroku
+      run: git push -f https://heroku:${{ secrets.HEROKU_API_TOKEN }}@git.heroku.com/pedro-surf-forecast.git origin/main:main
