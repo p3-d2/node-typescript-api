@@ -9,7 +9,7 @@ jobs:
 
   build:
 
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
 
     strategy:
       matrix:
@@ -36,16 +36,15 @@ jobs:
     - name: Run all tests
       run: yarn test
 
-    - name: Updating Ubuntu system and Heroku
-        env: 
-          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-        run: sudo apt update && sudo apt install heroku neofetch
+    - name: Login to Heroku Container registry
+      env: 
+        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+      run: heroku container:login
 
-      - uses: akhileshns/heroku-deploy@v3.8.8
-        with:
-          heroku_email: pedro.contato.email@gmail.com
-          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: ${{secrets.HEROKU_APP_NAME}}
-          branch: HEAD
-          useforce: false
-          dynamicFiles: false
+    - name: Add Heroku remote
+      run: heroku git:remote --app $HEROKU_APP_NAME
+      env:
+        HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
+
+    - name: Push to Heroku
+      run: git push heroku master
