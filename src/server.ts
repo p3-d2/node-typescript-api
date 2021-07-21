@@ -10,7 +10,7 @@ import { BeachesController } from './controllers/beaches';
 import { UsersController } from './controllers/users';
 
 export class SetupServer extends Server {
-  constructor(private port = 3000) {
+  constructor(private port = process.env.PORT || 3000) {
     super();
   }
 
