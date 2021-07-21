@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "start": "yarn && yarn build && node dist/src/index.js",
+    "start": "yarn build && node dist/src/index.js",
     "start:local": "ts-node-dev 'src/index.ts'",
     "lint": "eslint ./src ./test --ext .ts",
     "lint:fix": "eslint ./src ./test --ext .ts --fix",
