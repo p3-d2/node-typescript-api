@@ -2,6 +2,7 @@ import './util/module-alias';
 
 import { Server } from '@overnightjs/core';
 import { Application, json } from 'express';
+import * as http from 'http';
 
 import * as database from '@src/database';
 
@@ -12,6 +13,8 @@ import { UsersController } from './controllers/users';
 import logger from './logger';
 
 export class SetupServer extends Server {
+  private server?: http.Server;
+
   constructor(private port = 3000) {
     super();
   }
@@ -45,6 +48,16 @@ export class SetupServer extends Server {
 
   public async close(): Promise<void> {
     await database.close();
+    if (this.server) {
+      await new Promise<void>((resolve, reject) => {
+        this.server?.close((err) => {
+          if (err) {
+            return reject(err);
+          }
+          resolve();
+        });
+      });
+    }
   }
 
   public start(): void {
