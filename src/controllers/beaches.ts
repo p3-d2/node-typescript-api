@@ -5,6 +5,8 @@ import mongoose from 'mongoose';
 import { Beach } from '@src/models/beach';
 import { authMiddleware } from '@src/middlewares/auth';
 
+import logger from '@src/logger';
+
 @Controller('beaches')
 @ClassMiddleware(authMiddleware)
 export class BeachesController {
@@ -18,6 +20,7 @@ export class BeachesController {
       if (error instanceof mongoose.Error.ValidationError) {
         res.status(422).send({ error: error.message });
       } else {
+        logger.error(error);
         res.status(500).send({
           code: 500,
           error: 'Server Error',
