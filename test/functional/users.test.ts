@@ -133,8 +133,6 @@ describe('Users functional tests', () => {
         .get('/users/me')
         .set({ 'x-access-token': token });
 
-      console.log(body, status);
-
       expect(status).toBe(404);
       expect(body.message).toBe('User not found!');
     });
