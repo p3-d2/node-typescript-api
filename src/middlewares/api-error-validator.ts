@@ -4,6 +4,7 @@ import ApiError from '@src/util/errors/api-error';
 export interface HTTPError extends Error {
   status?: number;
 }
+
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function apiErrorValidator(
   error: HTTPError,
