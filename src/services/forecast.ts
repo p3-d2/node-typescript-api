@@ -12,7 +12,7 @@ export interface TimeForecast {
   forecast: BeachForecast[];
 }
 
-export interface BeachForecast extends Omit<Beach, 'user'>, ForecastPoint {}
+export interface BeachForecast extends Omit<Beach, 'userId'>, ForecastPoint {}
 
 export class ForecastProcessingInternalError extends InternalError {
   constructor(message: string) {
