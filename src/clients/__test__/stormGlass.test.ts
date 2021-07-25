@@ -1,5 +1,6 @@
 import * as HTTPUtil from '@src/util/request';
 import { StormGlass } from '@src/clients/stormGlass';
+import { CacheUtil } from '@src/util/cache';
 
 import stormglassNormalizedResponseFixture from '@test/fixtures/stormglass_normalized_response_3_hours.json';
 import stormglassWeatherPointFixture from '@test/fixtures/stormglass_weather_3_hours.json';
@@ -11,6 +12,7 @@ describe('StormGlass client', () => {
     typeof HTTPUtil.Request
   >;
   const mockedRequest = new HTTPUtil.Request() as jest.Mocked<HTTPUtil.Request>;
+  const mockedCache = new CacheUtil() as jest.Mocked<CacheUtil>;
 
   it('should return the normalized forecast from the StormGlass service', async () => {
     const lat = -33.792726;
@@ -43,7 +45,8 @@ describe('StormGlass client', () => {
       data: incompleteResponse,
     } as HTTPUtil.Response);
 
-    const stormGlass = new StormGlass(mockedRequest);
+    mockedCache.get = jest.fn().mockReturnValue(undefined);
+    const stormGlass = new StormGlass(mockedRequest, mockedCache);
     const response = await stormGlass.fetchPoints(lat, lng);
 
     expect(response).toEqual([]);
