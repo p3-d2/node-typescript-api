@@ -7,10 +7,10 @@ export function authMiddleware(
   res: Partial<Response>,
   next: NextFunction
 ): void {
+  const token = req.headers?.['x-access-token'];
   try {
-    const token = req.headers?.['x-access-token'];
-    const decoded = AuthService.decodeToken(token as string);
-    req.decoded = decoded;
+    const claims = AuthService.decodeToken(token as string);
+    req.context = { userId: claims.sub };
     next();
   } catch (error) {
     res.status?.(401).send({

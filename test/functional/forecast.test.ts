@@ -27,11 +27,11 @@ describe('Beach forecast functional tests', () => {
       lng: 151.289824,
       name: 'Manly',
       position: GeoPosition.E,
-      user: user.id,
+      userId: user.id,
     };
 
     await new Beach(defaultBeach).save();
-    token = AuthService.generateToken(user.toJSON());
+    token = AuthService.generateToken(user.id);
   });
 
   it('should return a forecast with just a few times', async () => {
@@ -55,8 +55,8 @@ describe('Beach forecast functional tests', () => {
     const { body, status } = await global.testRequest
       .get('/forecast')
       .set({ 'x-access-token': token });
-    expect(status).toBe(200);
 
+    expect(status).toBe(200);
     expect(body).toEqual(apiForecastResponse1BeachFixture);
   });
 
