@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "start": "yarn build && node dist/src/index.js",
+    "start": "node dist/src/index.js",
     "start:local": "dotenv -e .env -- ts-node-dev --transpile-only --ignore-watch node_modules 'src/index.ts' | pino-pretty -c",
     "lint": "eslint ./src ./test --ext .ts",
     "lint:fix": "eslint ./src ./test --ext .ts --fix",
@@ -21,7 +21,7 @@
     "typescript",
     "api"
   ],
-  "author": "Pedro Henrique",
+  "author": "Pedro-frontEnd",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/pedro-frontend/node-typescript-api/issues"
